@@ -29,24 +29,35 @@ fn recursion(brace: &mut Brace, idx: usize) {
         return;
     }
 
-    brace.vec[idx] = '(';
-    brace.stack.push('(');
-    recursion(brace, idx + 1);
-
-    let bracket = brace.stack.pop().unwrap();
-    if bracket == '(' {
-        brace.vec[idx] = ')';
+    if brace.stack.len() < brace.vec.len() - idx {
+        brace.vec[idx] = '(';
+        brace.stack.push('(');
         recursion(brace, idx + 1);
-    } else { brace.stack.push(bracket) }
+        brace.stack.pop();
+    }
 
-    brace.vec[idx] = '[';
-    brace.stack.push('[');
-    recursion(brace, idx + 1);
-    let bracket = brace.stack.pop().unwrap();
-    if bracket == '(' {
-        brace.vec[idx] = ']';
+    if !brace.stack.is_empty() {
+        let bracket = brace.stack.pop().unwrap();
+        if bracket == '(' {
+            brace.vec[idx] = ')';
+            recursion(brace, idx + 1);
+        }
+        brace.stack.push(bracket);
+    }
+    if brace.stack.len() < brace.vec.len() - idx - 1 {
+        brace.vec[idx] = '[';
+        brace.stack.push('[');
         recursion(brace, idx + 1);
-    } else { brace.stack.push(bracket) }
+        brace.stack.pop();
+    }
+    if !brace.stack.is_empty() {
+        let bracket = brace.stack.pop().unwrap();
+        if bracket == '[' {
+            brace.vec[idx] = ']';
+            recursion(brace, idx + 1);
+        }
+        brace.stack.push(bracket)
+    }
 }
 
 
