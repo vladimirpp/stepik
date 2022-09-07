@@ -20,7 +20,6 @@ fn task() {
     recursion(&mut brace, 0);
 }
 
-
 fn recursion(brace: &mut Brace, idx: usize) {
     if idx == brace.vec.len() {
         brace.index += 1;
