@@ -17,11 +17,11 @@ fn task() {
     let mut brace = Brace::new(20);
     let sum = 0;
     let idx = 0;
-    rec(&mut brace, sum, idx);
+    recursion(&mut brace, sum, idx);
 }
 
 
-fn rec(brace: &mut Brace, sum: i32, idx: usize) {
+fn recursion(brace: &mut Brace, sum: i32, idx: usize) {
     if sum == ((brace.vec.len() / 2) as i32) {
         if is_valid(&brace.vec) {
             brace.index += 1;
@@ -35,9 +35,9 @@ fn rec(brace: &mut Brace, sum: i32, idx: usize) {
         return;
     }
     brace.vec[idx] = '(';
-    rec(brace, sum + 1, idx + 1);
+    recursion(brace, sum + 1, idx + 1);
     brace.vec[idx] = ')';
-    rec(brace, sum, idx + 1);
+    recursion(brace, sum, idx + 1);
 }
 
 fn is_valid(vec: &Vec<char>) -> bool {
