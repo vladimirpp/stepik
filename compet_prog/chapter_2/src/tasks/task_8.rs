@@ -44,7 +44,7 @@ fn recursion(brace: &mut Brace, idx: usize) {
         }
         brace.stack.push(bracket);
     }
-    if brace.stack.len() < brace.vec.len() - idx - 1 {
+    if brace.stack.len() < brace.vec.len() - idx {
         brace.vec[idx] = '[';
         brace.stack.push('[');
         recursion(brace, idx + 1);
