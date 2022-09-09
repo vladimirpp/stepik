@@ -25,7 +25,7 @@ impl Path {
 fn task(filename: &str) -> Result<(), Box<dyn Error>> {
     println!("{filename}");
     let file = File::open(filename)?;
-    let mut n;
+    let mut n = 0;
     let mut vec = vec![vec![0; 1]; 1];
     for (i, line) in io::BufReader::new(file).lines().enumerate() {
         if let Ok(data) = line {
@@ -40,10 +40,8 @@ fn task(filename: &str) -> Result<(), Box<dyn Error>> {
             }
         }
     }
-    // println!("{:?}", vec);
 
-
-    let mut path = Path::new(11);
+    let mut path = Path::new(n + 1);
     let sum = 0;
     let idx = 1;
     rec(&mut vec, &mut path, sum, idx);
@@ -60,7 +58,7 @@ fn rec(vec: &mut Vec<Vec<usize>>, path: &mut Path, mut sum: usize, idx: usize) {
             path.min_sum = sum;
             println!(" {0}, {1:?}, {2}", path.index, path.vec, path.min_sum);
             for (i, _) in path.vec.iter().enumerate() {
-                if i > 9 {
+                if i > path.vec.len() - 2 {
                     continue;
                 }
                 if i == path.vec.len() - 2 {
@@ -74,7 +72,7 @@ fn rec(vec: &mut Vec<Vec<usize>>, path: &mut Path, mut sum: usize, idx: usize) {
         return;
     }
 
-    for i in 1..=9 as usize {
+    for i in 1..path.vec.len() - 1 as usize {
         if path.used[i] {
             continue;
         }
