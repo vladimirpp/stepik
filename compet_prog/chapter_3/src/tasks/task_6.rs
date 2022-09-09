@@ -52,7 +52,6 @@ fn task(filename: &str) -> Result<(), Box<dyn Error>> {
     for (i, line) in io::BufReader::new(file).lines().enumerate() {
         if let Ok(data) = line {
             if i == 0 {} else {
-
                 let numbers: Vec<&str> = data.trim().split(" ").collect();
                 let left: usize = numbers[0].trim().parse().expect("Не корректные данные(");
                 let right: usize = numbers[1].trim().parse().expect("Не корректные данные(");
