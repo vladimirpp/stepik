@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "haffman",
+    "long_subsequence",
+]
