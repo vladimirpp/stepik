@@ -2,6 +2,7 @@ use std::error::Error;
 use std::fs::File;
 use std::io;
 use std::io::BufRead;
+use std::str::FromStr;
 
 #[derive(Debug)]
 struct Path {
@@ -31,11 +32,11 @@ fn task(filename: &str) -> Result<(), Box<dyn Error>> {
         if let Ok(data) = line {
             if i == 0 {
                 println!("Кол-во строк в файле {data}");
-                n = data.parse().expect("Не корректные данные(");
+                n = usize::from_str(&(data.trim())).expect("Не корректные данные(");
                 vec = vec![vec![0; n]; n];
             } else {
                 for (j, number) in data.trim().split(" ").enumerate() {
-                    vec[i - 1][j] = number.trim().parse().expect("Не корректные данные(");
+                    vec[i - 1][j] = usize::from_str(&(number.trim())).expect("Не корректные данные(");
                 }
             }
         }
